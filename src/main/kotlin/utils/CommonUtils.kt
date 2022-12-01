@@ -1,6 +1,7 @@
 package utils
 
 import java.io.File
+import java.math.BigDecimal
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -9,7 +10,9 @@ val BLANC_LINE = NEW_LINE + NEW_LINE
 
 fun String.splitOnNewLine() = split(NEW_LINE)
 fun String.splitOnBlancLine() = split(BLANC_LINE)
-fun List<String>.sum() = sumOf { it.toInt() }
+fun List<String>.sum() = sumOf { it.toBigDecimal() }
+@JvmName("sumBigDecimal")
+fun List<BigDecimal>.sum() = sumOf { it }
 
 fun readFile(fileName: String)
         = File("src/main/resources/inputs/$fileName").inputStream().readBytes().toString(Charsets.UTF_8)
