@@ -14,6 +14,7 @@ fun List<String>.sum() = sumOf { it.toBigDecimal() }
 @JvmName("sumBigDecimal")
 fun List<BigDecimal>.sum() = sumOf { it }
 fun String.binaryToInt() = Integer.parseInt(this, 2)
+infix fun String.intersect(otherString: String) = (this.toSet() intersect otherString.toSet()).joinToString()
 
 fun readFile(fileName: String)
         = File("src/main/resources/inputs/$fileName").inputStream().readBytes().toString(Charsets.UTF_8)
