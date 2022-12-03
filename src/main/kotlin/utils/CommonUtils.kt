@@ -13,6 +13,7 @@ fun String.splitOnBlancLine() = split(BLANC_LINE)
 fun List<String>.sum() = sumOf { it.toBigDecimal() }
 @JvmName("sumBigDecimal")
 fun List<BigDecimal>.sum() = sumOf { it }
+fun String.binaryToInt() = Integer.parseInt(this, 2)
 
 fun readFile(fileName: String)
         = File("src/main/resources/inputs/$fileName").inputStream().readBytes().toString(Charsets.UTF_8)
