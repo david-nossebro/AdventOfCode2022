@@ -1,7 +1,7 @@
 # Advent of Code 2022
 [Advent of Code](https://adventofcode.com/) (hopefully) solved in Kotlin.
 <details>
-  <summary>Day 1 - Calorie Counting</summary>
+  <summary>Day 1: Calorie Counting</summary>
 
 ## Part 1
 Santa's reindeer typically eat regular reindeer food, but they need a lot of magical energy to deliver presents on Christmas. For that, their favorite snack is a special type of star fruit that only grows deep in the jungle. The Elves have brought you on their annual expedition to the grove where the fruit grows.
@@ -53,7 +53,7 @@ Find the top three Elves carrying the most Calories. How many Calories are those
 </details>
 
 <details>
-  <summary>Day 2 - Rock Paper Scissors</summary>
+  <summary>Day 2: Rock Paper Scissors</summary>
 
 ## Part 1
 
