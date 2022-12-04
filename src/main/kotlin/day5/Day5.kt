@@ -1,20 +1,21 @@
 package day5
 
 import utils.readFile
+import utils.splitOnNewLine
 
 fun main() {
-    val input = readFile("day5.txt")
+    val inputRows = readFile("day5.txt").splitOnNewLine()
 
-    println("P1: ${part1(input)}")
-    println("P2: ${part2(input)}")
+    println("P1: ${part1(inputRows)}")
+    //println("P2: ${part2(inputRows)}")
 }
 
-fun part1(input: String): Int {
+fun part1(inputRows: List<String>): Int {
 
     return 27
 }
 
-fun part2(input: String): Int {
+fun part2(inputRows: List<String>): Int {
 
     return 27
 }
