@@ -10,16 +10,19 @@ val BLANC_LINE = NEW_LINE + NEW_LINE
 
 fun String.splitOnNewLine() = split(NEW_LINE)
 fun String.splitOnBlancLine() = split(BLANC_LINE)
+fun String.splitToInt(delimiter: String) = this.split(delimiter).map { it.toInt() }
+fun String.group(groupDelimiter: String = BLANC_LINE, itemDelimiter: String = NEW_LINE) =
+    split(groupDelimiter).map { it.split(itemDelimiter) }
 fun List<String>.sum() = sumOf { it.toBigDecimal() }
 @JvmName("sumBigDecimal")
 fun List<BigDecimal>.sum() = sumOf { it }
 fun String.binaryToInt() = Integer.parseInt(this, 2)
-infix fun String.intersect(otherString: String) = (this.toSet() intersect otherString.toSet()).joinToString()
-infix fun String.overlaps(otherString: String) = (this intersect otherString).isNotEmpty()
+infix fun CharSequence.intersect(otherString: CharSequence) = (this.toSet() intersect otherString.toSet()).joinToString()
+infix fun CharSequence.overlaps(otherString: CharSequence) = (this intersect otherString).isNotEmpty()
 infix fun String.containsAllOrIsContainedIn(otherString: String) =
     otherString.all { this.contains(it) } || this.all { otherString.contains(it) }
-infix fun IntRange.overlaps(otherRange: IntRange) = (this intersect otherRange).isNotEmpty()
-infix fun IntRange.containsAllOrIsContainedIn(otherRange: IntRange) =
+infix fun <T> Iterable<T>.overlaps(otherRange: Iterable<T>) = (this intersect otherRange.toSet()).isNotEmpty()
+infix fun <T> Iterable<T>.containsAllOrIsContainedIn(otherRange: Iterable<T>) =
     otherRange.all { this.contains(it) } || this.all { otherRange.contains(it) }
 
 fun readFile(fileName: String)

@@ -3,6 +3,8 @@
 <details>
   <summary>Day 1: Calorie Counting</summary>
 
+[My solution](./src/main/kotlin/day1/Day1.kt)
+
 ## Part 1
 Santa's reindeer typically eat regular reindeer food, but they need a lot of magical energy to deliver presents on Christmas. For that, their favorite snack is a special type of star fruit that only grows deep in the jungle. The Elves have brought you on their annual expedition to the grove where the fruit grows.
 
@@ -55,6 +57,8 @@ Find the top three Elves carrying the most Calories. How many Calories are those
 <details>
   <summary>Day 2: Rock Paper Scissors</summary>
 
+[My solution](./src/main/kotlin/day2/Day2.kt)
+
 ## Part 1
 
 The Elves begin to set up camp on the beach. To decide whose tent gets to be closest to the snack storage, a giant Rock Paper Scissors tournament is already in progress.
@@ -100,6 +104,8 @@ Following the Elf's instructions for the second column, what would your total sc
 
 <details>
   <summary>Day 3: Rucksack Reorganization</summary>
+
+[My solution](./src/main/kotlin/day3/Day3.kt)
 
 ## Part 1
 
@@ -167,6 +173,8 @@ Find the item type that corresponds to the badges of each three-Elf group. What 
 
 <details>
   <summary>Day 4: Camp Cleanup</summary>
+
+[My solution](./src/main/kotlin/day4/Day4.kt)
 
 ## Part 1
 
