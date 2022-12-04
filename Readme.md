@@ -2,7 +2,7 @@
 [Advent of Code](https://adventofcode.com/) (hopefully) solved in Kotlin.
 <details>
   <summary>Day 1: Calorie Counting</summary>
-
+<br />
 
 [My solution](./src/main/kotlin/day1/Day1.kt)
 
@@ -57,7 +57,7 @@ Find the top three Elves carrying the most Calories. How many Calories are those
 
 <details>
   <summary>Day 2: Rock Paper Scissors</summary>
-
+<br />
 
 [My solution](./src/main/kotlin/day2/Day2.kt)
 
@@ -106,7 +106,7 @@ Following the Elf's instructions for the second column, what would your total sc
 
 <details>
   <summary>Day 3: Rucksack Reorganization</summary>
-
+<br />
 
 [My solution](./src/main/kotlin/day3/Day3.kt)
 
@@ -176,7 +176,7 @@ Find the item type that corresponds to the badges of each three-Elf group. What 
 
 <details>
   <summary>Day 4: Camp Cleanup</summary>
-
+<br />
 
 [My solution](./src/main/kotlin/day4/Day4.kt)
 
