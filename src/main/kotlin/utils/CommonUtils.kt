@@ -10,7 +10,7 @@ val BLANC_LINE = NEW_LINE + NEW_LINE
 
 fun String.splitOnNewLine() = split(NEW_LINE)
 fun String.splitOnBlancLine() = split(BLANC_LINE)
-fun String.splitToInt(delimiter: String) = this.split(delimiter).map { it.toInt() }
+fun String.splitToInt(vararg delimiter: String) = this.split(*delimiter).map { it.toInt() }
 fun String.group(groupDelimiter: String = BLANC_LINE, itemDelimiter: String = NEW_LINE) =
     split(groupDelimiter).map { it.split(itemDelimiter) }
 fun List<String>.sum() = sumOf { it.toBigDecimal() }
@@ -21,9 +21,23 @@ infix fun CharSequence.intersect(otherString: CharSequence) = (this.toSet() inte
 infix fun CharSequence.overlaps(otherString: CharSequence) = (this intersect otherString).isNotEmpty()
 infix fun String.containsAllOrIsContainedIn(otherString: String) =
     otherString.all { this.contains(it) } || this.all { otherString.contains(it) }
-infix fun <T> Iterable<T>.overlaps(otherRange: Iterable<T>) = (this intersect otherRange.toSet()).isNotEmpty()
-infix fun <T> Iterable<T>.containsAllOrIsContainedIn(otherRange: Iterable<T>) =
-    otherRange.all { this.contains(it) } || this.all { otherRange.contains(it) }
+infix fun <T: Comparable<T>> ClosedRange<T>.overlaps(other: ClosedRange<T>) =
+    start <= other.endInclusive && endInclusive >= other.start
+
+infix fun <T: Comparable<T>> ClosedRange<T>.containsAllOrIsContainedIn(other: ClosedRange<T>) =
+    this containsAll other || other containsAll this
+
+infix fun <T: Comparable<T>> ClosedRange<T>.containsAll(otherRange: ClosedRange<T>) =
+    start <= otherRange.start && endInclusive >= otherRange.endInclusive
+
+infix fun <T> Collection<T>.overlaps(other: Collection<T>) =
+    any { it in other }
+
+infix fun <T> Collection<T>.containsAllOrIsContainedIn(other: Collection<T>) =
+    this containsAll other || other containsAll this
+
+infix fun <T> Collection<T>.containsAll(other: Collection<T>) =
+    this.all { it in other }
 
 fun readFile(fileName: String)
         = File("src/main/resources/inputs/$fileName").inputStream().readBytes().toString(Charsets.UTF_8)

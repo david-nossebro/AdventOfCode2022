@@ -21,17 +21,18 @@ fun part2(inputRows: List<String>) =
     }
 
 fun List<String>.toCleaningAreaPairs() =
-    map { row -> row.split(",").let { (firstArea, secondArea) ->
-            firstArea.toIntRange() to secondArea.toIntRange()
+    map { row -> row.splitToInt(",", "-").let { (firstStart, firstEnd, secondStart, secondEnd) ->
+            firstStart..firstEnd to secondStart..secondEnd
         }
     }
 
-fun String.toIntRange() = this.splitToInt("-")
-    .let { (areaStart, areaEnd) -> (areaStart..areaEnd) }
+fun String.splitToInt(vararg delimiter: String) = this.split(*delimiter).map { it.toInt() }
 
-fun String.splitToInt(delimiter: String) = this.split(delimiter).map { it.toInt() }
+infix fun <T: Comparable<T>> ClosedRange<T>.overlaps(other: ClosedRange<T>) =
+    start <= other.endInclusive && endInclusive >= other.start
 
-infix fun IntRange.overlaps(otherRange: IntRange) = (this intersect otherRange).isNotEmpty()
+infix fun <T: Comparable<T>> ClosedRange<T>.containsAllOrIsContainedIn(other: ClosedRange<T>) =
+    this containsAll other || other containsAll this
 
-infix fun IntRange.containsAllOrIsContainedIn(otherRange: IntRange) =
-    otherRange.all { this.contains(it) } || this.all { otherRange.contains(it) }
+infix fun <T: Comparable<T>> ClosedRange<T>.containsAll(otherRange: ClosedRange<T>) =
+    start <= otherRange.start && endInclusive >= otherRange.endInclusive
