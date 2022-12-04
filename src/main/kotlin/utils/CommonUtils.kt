@@ -15,6 +15,12 @@ fun List<String>.sum() = sumOf { it.toBigDecimal() }
 fun List<BigDecimal>.sum() = sumOf { it }
 fun String.binaryToInt() = Integer.parseInt(this, 2)
 infix fun String.intersect(otherString: String) = (this.toSet() intersect otherString.toSet()).joinToString()
+infix fun String.overlaps(otherString: String) = (this intersect otherString).isNotEmpty()
+infix fun String.containsAllOrIsContainedIn(otherString: String) =
+    otherString.all { this.contains(it) } || this.all { otherString.contains(it) }
+infix fun IntRange.overlaps(otherRange: IntRange) = (this intersect otherRange).isNotEmpty()
+infix fun IntRange.containsAllOrIsContainedIn(otherRange: IntRange) =
+    otherRange.all { this.contains(it) } || this.all { otherRange.contains(it) }
 
 fun readFile(fileName: String)
         = File("src/main/resources/inputs/$fileName").inputStream().readBytes().toString(Charsets.UTF_8)
