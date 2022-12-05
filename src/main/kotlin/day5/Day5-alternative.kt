@@ -11,24 +11,29 @@ fun main() {
     println("Part 2: ${part2(input)}") //NGCMPJLHV
 }
 
-fun String.toStacks() = splitOnBlancLine().first().splitOnNewLine().dropLast(1).map { row ->
-        // Each Item is 4 letters on a row. Eg: "[G] "
-        row.chunked(4).map { it.trim() }
-            .mapIndexed{ index, item -> index to item }.filter { it.second.isNotEmpty() }
-            .map { it.first to it.second[1] } // [C] -> C
-    }.fold(
-        emptyMap<Int, ArrayDeque<Char>>().toMutableMap()
-    ) {
-        acc, itemsOnRow ->
-        itemsOnRow.forEach { (index, item) ->
-            acc.getOrPut(index + 1) { ArrayDeque() }.addLast(item)
+fun String.toStacks(): List<ArrayDeque<Char>> {
+
+        val stacks = List(size = 9) { ArrayDeque<Char>() }
+
+        splitOnBlancLine().first().splitOnNewLine().dropLast(1).map { row ->
+            // Each Item is 4 letters on a row. Eg: "[G] "
+            row.chunked(4)
+                .mapIndexed {
+                        index, item -> index to item[1] // [C] -> C
+                }.filter { (_, item) -> item.isLetter() }
+        }.forEach { row ->
+            row.forEach { (index, item) ->
+                stacks[index].addLast(item)
+            }
         }
-        acc
-    }
+
+        return stacks
+}
 
 fun String.toInstructions() = splitOnBlancLine()[1].splitOnNewLine().map { instructionString ->
-    val (nrOfItems, from, to) = instructionString.split("move ", " from ", " to ").drop(1).map{ it.toInt() }
-    Instruction(nrOfItems, from, to)
+    val (nrOfItems, from, to) = instructionString.split(" ").mapNotNull{ it.toIntOrNull() }
+    // Doing -1 to match index of list that store the stacks.
+    Instruction(nrOfItems, from - 1, to - 1)
 }
 
 fun part1(input: String): String {
@@ -37,12 +42,8 @@ fun part1(input: String): String {
     val instructions = input.toInstructions()
 
     instructions.forEach { instruction ->
-
-        val fromStack = stacks[instruction.from] ?: error("Stack not found ${instruction.from}")
-        val toStack = stacks[instruction.to] ?: error("Stack not found ${instruction.to}")
-
         repeat(instruction.nrOfItems) {
-            fromStack moveOneTo toStack
+            stacks[instruction.from] moveOneTo stacks[instruction.to]
         }
     }
 
@@ -55,9 +56,7 @@ fun part2(input: String): String {
     val instructions = input.toInstructions()
 
     instructions.forEach { instruction ->
-        val fromStack = stacks[instruction.from] ?: error("Stack not found ${instruction.from}")
-        val toStack = stacks[instruction.to] ?: error("Stack not found ${instruction.to}")
-        instruction.nrOfItems takeFromTopOf fromStack putOn toStack
+        instruction.nrOfItems takeFromTopOf stacks[instruction.from] putOn stacks[instruction.to]
     }
 
     return stacks.toTopItemsString()
@@ -67,6 +66,7 @@ data class Instruction(val nrOfItems: Int, val from: Int, val to: Int)
 
 infix fun ArrayDeque<Char>.moveOneTo(other: ArrayDeque<Char>) = other.addFirst(removeFirst())
 infix fun List<Char>.putOn(stack: ArrayDeque<Char>) = reversed().forEach { stack.addFirst(it) }
-infix fun Int.takeFromTopOf(stack: ArrayDeque<Char>) = (0 until this).map { stack.removeFirst() }
-fun  MutableMap<Int, ArrayDeque<Char>>.toTopItemsString() =
-    toSortedMap().map { it.value.firstOrNull() ?: "" }.joinToString("")
+infix fun Int.takeFromTopOf(stack: ArrayDeque<Char>): List<Char> = (0 until this).map { stack.removeFirst() }
+
+fun  List<ArrayDeque<Char>>.toTopItemsString() =
+    map { it.firstOrNull() ?: "" }.joinToString("")
